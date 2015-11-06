@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:o="http://omnifaces.org/ui"
+	  xmlns:p="http://primefaces.org/ui"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	<title>Welcome to Gurukula</title>
+	<h:outputScript name="bootstrap/js/jquery.min.js" />
+	<h:outputScript name="bootstrap/js/bootstrap.min.js" />
+	<h:outputScript name="bootstrap/js/select2.min.js" />
+	<h:outputScript name="scripts/custom.js" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+	<h:outputStylesheet name="bootstrap/css/select2.css" />
+	<h:outputStylesheet name="css/main.css" />
+	<o:importConstants type="com.asr2.gurukula.commons.api.Operation" var="Operation" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<p:growl id="main_messages" showDetail="true" />
+	<ui:debug rendered="#{facesContext.application.projectStage == 'Development'}" />
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#{request.contextPath}" title="Gurukula">
+					<img src='#{resource["img/gurukula_v3.png"]}' alt="Gurukula" style="max-width: 100px; margin-top: -25px;"/>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav nav-pills navbar-right">
+					<li>
+						<a href="#{request.contextPath}">
+							<span class="glyphicon glyphicon-home"></span>
+							<span>Home</span>
+						</a>
+					</li>
+					<li class="dropdown pointer">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    <span class="hidden-tablet">
+                                        Administration
+                                    </span>
+                                    <b class="caret"></b>
+                                </span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a jsf:outcome="/branch/search.xhtml"><span class="glyphicon glyphicon-asterisk"></span>
+								&#xA0;<span>Branch</span></a> </li>
+							<li><a jsf:outcome="/student/search.xhtml"><span
+									class="glyphicon glyphicon-asterisk"></span>
+								&#xA0;<span>Student</span></a> </li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="well">
+			<h3>
+				<ui:insert name="header" />
+			</h3>
+
+			<ui:insert name="main" />
+		</div>
+
+		<div class="footer">
+			<p>Copyright &#169; 2015. All rights reserved.</p>
+		</div>
+	</div>
+</h:body>
+</html>

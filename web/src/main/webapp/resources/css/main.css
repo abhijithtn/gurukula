@@ -1,0 +1,15 @@
+.gurukula {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url("../img/gurukula_v3.png") no-repeat center top;
+    background-size: contain;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}

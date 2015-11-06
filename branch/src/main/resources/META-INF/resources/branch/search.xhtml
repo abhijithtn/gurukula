@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/scaffold/pageTemplate.xhtml">
+
+    <ui:define name="header">
+        Branch
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form id="search">
+            <p:commandButton value="New Branch" id="new_branch" styleClass="ui-priority-primary" action="create" actionListener="#{branchBean.createActionListener}" />
+
+            <p:commandButton icon="ui-icon-refresh" title="Refresh" update="branches" style="float: right">
+                <f:setPropertyActionListener value="true" target="#{branchBean.isRefresh}" />
+            </p:commandButton>
+
+            <p:messages id="msgs" autoUpdate="true" closable="true"/>
+
+            <br />
+
+            <p:dataTable id="branches" var="student" value="#{branchBean.branches}">
+
+                <p:column headerText="Name" sortBy="#{student.name}">
+                    <h:outputText value="#{student.name}"/>
+                </p:column>
+
+                <p:column headerText="Code" sortBy="#{student.code}">
+                    <h:outputText value="#{student.code}"/>
+                </p:column>
+
+                <p:column headerText="Created on" sortBy="#{student.createdOn}">
+                    <h:outputText value="#{student.createdOn}">
+                        <f:convertDateTime pattern="#{appSettings.dateFormat}" timeZone="#{appSettings.timeZone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Updated on" sortBy="#{student.updatedOn}">
+                    <h:outputText value="#{student.updatedOn}">
+                        <f:convertDateTime pattern="#{appSettings.dateFormat}" timeZone="#{appSettings.timeZone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column style="width: 100px;">
+                    <p:commandButton action="create" title="View" icon="ui-icon-search">
+                        <f:setPropertyActionListener value="#{student}" target="#{branchBean.branch}" />
+                        <f:setPropertyActionListener value="#{Operation.UPDATE}" target="#{branchBean.operation}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-close" title="Delete" update=":search:msgs,branches" action="#{branchBean.delete(student.code)}">
+                        <f:setPropertyActionListener value="true" target="#{branchBean.isRefresh}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

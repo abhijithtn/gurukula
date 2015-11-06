@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                template="/resources/scaffold/pageTemplate.xhtml">
+
+    <f:metadata>
+        <f:attribute name="page" value="#{studentBean.page}" />
+    </f:metadata>
+
+    <ui:define name="header">
+        Student
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form id="search">
+            <p:commandButton value="New Student" id="new_student" styleClass="btn btn-primary"
+                             action="create"
+                             actionListener="#{studentBean.createActionListener}" />
+
+            <p:commandButton icon="ui-icon-refresh" title="Refresh" update="students" style="float: right">
+                <f:setPropertyActionListener value="true" target="#{studentBean.isRefresh}" />
+            </p:commandButton>
+
+            <button type="button" class="btn btn-default" jsf:outcome="upload">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true" /> Upload
+            </button>
+
+            <p:messages id="msgs" autoUpdate="true" closable="true"/>
+
+            <br />
+
+            <p:dataTable id="students" var="student" value="#{studentBean.students}" paginator="true" rows="10">
+
+                <p:column headerText="USN" sortBy="#{student.usn}">
+                    <h:outputText value="#{student.usn}"/>
+                </p:column>
+
+                <p:column headerText="Name" sortBy="#{student.name}">
+                    <h:outputText value="#{student.name}" />
+                </p:column>
+
+                <p:column headerText="Branch" sortBy="#{student.branch.name}">
+                    <h:outputText value="#{student.branch.name}" />
+                </p:column>
+
+                <p:column headerText="Created on" sortBy="#{student.createdOn}">
+                    <h:outputText value="#{student.createdOn}">
+                        <f:convertDateTime pattern="#{appSettings.dateFormat}" timeZone="#{appSettings.timeZone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Updated on" sortBy="#{student.updatedOn}">
+                    <h:outputText value="#{student.updatedOn}">
+                        <f:convertDateTime pattern="#{appSettings.dateFormat}" timeZone="#{appSettings.timeZone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column style="width: 100px;">
+                    <p:commandButton action="create" title="View" icon="ui-icon-search">
+                        <f:setPropertyActionListener value="#{student}" target="#{studentBean.branch}" />
+                        <f:setPropertyActionListener value="#{Operation.UPDATE}" target="#{studentBean.operation}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-close" title="Delete" update=":search:msgs,students"
+                                     action="#{studentBean.delete(student.code)}">
+                        <f:setPropertyActionListener value="true" target="#{studentBean.isRefresh}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

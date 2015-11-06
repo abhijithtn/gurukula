@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				template="/resources/scaffold/pageTemplate.xhtml">
+	<ui:define name="main">
+		<div>
+			<div class="row">
+				<div class="col-md-4">
+					<span class="gurukula img-responsive img-rounded"></span>
+				</div>
+				<div class="col-md-8">
+					<h1>Welcome to Gurukula</h1>
+
+					<div>
+						<h:panelGrid rendered="#{request.requestedSessionIdValid}">
+							<div class="alert alert-success">
+								You are logged in as user admin
+							</div>
+						</h:panelGrid>
+
+						<h:panelGrid rendered="#{!request.requestedSessionIdValid}">
+							<div class="alert alert-warning">
+								Click here to <a href="#/login">login</a>
+							</div>
+
+							<div class="alert alert-warning">
+								You don't have an account yet? <a href="#/register">Register a new account</a>
+							</div>
+						</h:panelGrid>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/scaffold/pageTemplate.xhtml">
+
+    <f:metadata>
+        <f:attribute name="page" value="#{studentBean.page}"/>
+    </f:metadata>
+
+    <ui:define name="header">
+        Student
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form enctype="multipart/form-data" styleClass="form-horizontal">
+            <p:panel header="Upload student data" style="margin-bottom: 10px;">
+                <h:panelGrid columns="2" cellpadding="10" cellspacing="10">
+                    <h:outputText for="headerRowNum" value="Header row no: "/>
+
+                    <p:inputText value="#{studentBean.upload.headerRowNum}" title="headerRowNum"
+                                 label="Header Row No"
+                                 required="true" id="headerRowNum" converterMessage="Please enter digits only.">
+                        <f:validateLongRange minimum="2" maximum="15" for="headerRowNum"/>
+                        <p:ajax update="messages" event="keyup"/>
+                    </p:inputText>
+
+                    <br />
+
+                    <p:outputLabel />
+
+                    <p:fileUpload mode="simple"
+                                  value="#{studentBean.upload.uploadFile}"
+                                  skinSimple="true" validator="com.asr2.gurukula.commons.web.FileUploadValidator"/>
+                </h:panelGrid>
+
+                <br/>
+
+                <p:commandButton action="#{studentBean.processFile}" value="Submit"
+                                 styleClass="ui-priority-primary" update="messages" ajax="false"/>
+
+                <p:commandButton action="search" value="Cancel" immediate="true"
+                                 styleClass="ui-priority-secondary"/>
+
+                <p:growl id="messages" showDetail="true"/>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
