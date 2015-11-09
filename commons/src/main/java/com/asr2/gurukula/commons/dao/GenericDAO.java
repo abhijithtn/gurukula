@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import com.asr2.gurukula.commons.api.Message;
-import com.sun.tools.javac.jvm.Gen;
 
 /**
  * Created by abhijith.nagarajan on 8/12/15.
